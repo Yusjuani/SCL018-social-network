@@ -1,4 +1,4 @@
-import { newEmail, observador } from '../lib/firebase.js';
+import { newEmail /*observador*/ } from "../lib/firebase.js";
 
 export const register = () => {
   const formRegister = document.createElement('section');
@@ -22,9 +22,9 @@ export const register = () => {
 
   formRegister.innerHTML = viewRegister;
 
-  formRegister.querySelector('#newRegister').addEventListener('click', () => {
-    const email = formRegister.querySelector('#email').value;
-    const newpassword = formRegister.querySelector('#password').value;
+  formRegister.querySelector("#newRegister").addEventListener("click", () => {
+    const email = formRegister.querySelector("#email").value;
+    const newpassword = formRegister.querySelector("#password").value;
     newEmail(email, newpassword);
   });
 

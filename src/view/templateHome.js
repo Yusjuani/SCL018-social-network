@@ -1,13 +1,8 @@
-
-import {
-  postear,
-  readData,
-  auth,
-  eraseDoc,
-} from '../lib/firebase.js';
+import { postear, readData, auth, eraseDoc } from "../lib/firebase.js";
 
 export const home = () => {
-  const containerHome = document.createElement('section');
+  const containerHome = document.createElement("section");
+  console.log(auth);
   const viewHome = `
     <div class="container-home">
     <nav>
@@ -35,18 +30,13 @@ export const home = () => {
   
 </div>`;
 
-containerHome.innerHTML = viewHome;
-
-
-const publi = document.createElement("section");
   containerHome.innerHTML = viewHome;
-
   const post = (publicaciones) => {
     console.log(publicaciones);
-    publicaciones.forEach((element) => { 
-      containerHome.querySelector('#publicaciones').innerHTML += `
+    publicaciones.forEach((element) => {
+      containerHome.querySelector("#publicaciones").innerHTML += `
       <div class= "contenedorPost">
-      <p name="publication" id="${element.id}">${element.title}</p>
+      <p name="publication" id="publish">${element.title}</p>
       </div>
       <div class="container-wall">
       <ul class ="like-icons" style="list-style: none;">
@@ -54,38 +44,31 @@ const publi = document.createElement("section");
         <li><img class="iconpost" src="img/11.png" alt="comment"></li>
         <li><img class="iconpost" src="img/12.png" alt="share"></li>
         <li><img class="iconpost" src="img/13.png" alt="edit"></li>
-      ${ (element.userId === auth.currentUser.uid)?
+        ${ (element.userId === auth.currentUser.uid)?
           ` <li><img src="img/14.png" alt="delete" class="delete-btn iconpost" value ="${element.id}"></li>
           `:""
         }
+      </ul>
       </div>`;
-     
-
     });
-  }
-  
+  };
 
+  readData(post); // callback
+  const titulo = containerHome.querySelector("#publish-btn");
+  titulo.addEventListener("click", () => {
+    const input = containerHome.querySelector("#title").value;
+    const input2 = containerHome.querySelector("#publish").value;
+    console.log(input, input2);
+    postear(input);
+  });
 
-    readData(post); // callback
-    const titulo = containerHome.querySelector('#publish-btn');
-    titulo.addEventListener('click', () => {
-      const input = containerHome.querySelector('#title').value;
-      const input2 = containerHome.querySelector('#publish-btn').value;
-      console.log(input, input2);
-      postear(input);
-
-     
-    });
-
-
-  const botonDelete = containerHome.querySelector('.delete-btn');
+  const botonDelete = containerHome.querySelector(".delete-btn");
   botonDelete?.forEach((btn) => {
-    console.log(btn)
-    const id = btn.value
-    btn.addEventListener('click', () => {
+    console.log(btn);
+    const id = btn.value;
+    btn.addEventListener("click", () => {
       eraseDoc(id);
-    })
+    });
   });
   return containerHome;
 };
-

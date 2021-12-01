@@ -1,7 +1,7 @@
-import { logOut } from '../lib/firebase.js';
+import { logOut } from "../lib/firebase.js";
 
 export const profile = () => {
-  const containerProfile = document.createElement('section');
+  const containerProfile = document.createElement("section");
   const viewProfile = `
 <div class="container-home">
     <nav>
@@ -19,15 +19,13 @@ export const profile = () => {
       </div>
   </nav>`;
 
-
-
   containerProfile.innerHTML = viewProfile;
-  
-  //cerrar sesion
-   const out =containerProfile.querySelector('#btn-out')
-   out.addEventListener('click', () => {
+
+  // cerrar sesion
+  const out = containerProfile.querySelector("#btn-out");
+  out.addEventListener("click", () => {
     logOut();
-    window.location.hash ='#/login';
+    window.location.hash = "#/login";
   });
   return containerProfile;
 };

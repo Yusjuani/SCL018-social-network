@@ -7,9 +7,9 @@ import {
   signInWithPopup,
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
- onAuthStateChanged,
+  onAuthStateChanged,
   signOut,
-} from "https://www.gstatic.com/firebasejs/9.2.0/firebase-auth.js";
+} from 'https://www.gstatic.com/firebasejs/9.2.0/firebase-auth.js';
 
 import {
   getFirestore,
@@ -21,8 +21,7 @@ import {
   deleteDoc,
   Timestamp,
   orderBy,
-} from "https://www.gstatic.com/firebasejs/9.2.0/firebase-firestore.js";
-
+} from 'https://www.gstatic.com/firebasejs/9.2.0/firebase-firestore.js';
 
 const firebaseConfig = {
   apiKey: 'AIzaSyCRXzTGFbssFI_Vgt69WYFu5HAtJeW2vhk',
@@ -39,8 +38,7 @@ const app = initializeApp(firebaseConfig);
 export const auth = getAuth(app);
 const db = getFirestore(app);
 
-
-//AUTENTICACION GOOGLE
+// AUTENTICACION GOOGLE
 export const signInGoogle = () => {
   const provider = new GoogleAuthProvider(app);
   signInWithPopup(auth, provider)
@@ -50,9 +48,9 @@ export const signInGoogle = () => {
       const token = credential.accessToken;
       // The signed-in user info.
       const user = result.user;
-      window.location.hash = "#/templateHome";
+      window.location.hash = '#/templateHome';
       return user;
-       })
+    })
     .catch((error) => {
       // Handle Errors here.
       const errorCode = error.code;
@@ -64,23 +62,17 @@ export const signInGoogle = () => {
     });
 };
 // REGISTRO EMAIL Y PASSWORD NUEVOS USUARIOS
-
 export const newEmail = (email, newpassword) => {
-  // retornar esta funcion, hacer cambio de hash
   createUserWithEmailAndPassword(auth, email, newpassword)
-  //esto me regresa una promesa, then= resultado de una promesa
     .then((userCredential) => {
-      // Signed in/ result de la promesa 
       const user = userCredential.user;
-       //consultar o actualizar la data basica del usuario como url de la foto
-      window.location.hash = "#/login";
-       return user;
+      window.location.hash = '#/login';
+      return user;
     })
     .catch((error) => {
       const errorCode = error.code;
       const errorMessage = error.message;
     });
-        
 };
 // USUARIOS REGISTRADOS
 export const logEmail = (emaiLogin, passwordLogin) => {
@@ -88,7 +80,7 @@ export const logEmail = (emaiLogin, passwordLogin) => {
     .then((userCredential) => {
       // Signed in
       const user = userCredential.user;
-    window.location.hash = '#/templateHome';
+      window.location.hash = '#/templateHome';
     })
     .catch((error) => {
       const errorCode = error.code;
@@ -104,26 +96,12 @@ export const postear = async (input) => {
     title: input,
     correo: user.email,
     foto: user.photoURL,
-    id:  auth.currentUser.uid,
+    id: auth.currentUser.uid,
     datePost: Timestamp.fromDate(new Date()),
-});
-}
-//Funcion imprimir data
-export const readData = (callback) => {
-  const q = query(collection(db, "contenido"), orderBy('datePost', 'desc'));
-  onSnapshot(q, (querySnapshot) => {
-    const posting = [];
-    querySnapshot.forEach((doc) => {
-     const element = {};
-     /* element.id = doc.id;// OH ELY
-      element.data = doc.data(),
-      posting.push(element);//OH ely*/
-      posting.push(doc.data());
   });
-
-  console.log('Document written with ID: ', docRef.id);
-  return docRef;
 };
+// Funcion leer data
+
 export const readData = (callback) => {
   const q = query(collection(db, 'contenido'), orderBy('datePosted', 'desc'));
   const unsubscribe = onSnapshot(q, (querySnapshot) => {
@@ -131,22 +109,24 @@ export const readData = (callback) => {
     querySnapshot.forEach((doc) => {
       cities.push(doc.data());
     });
-    callback(posting);
-  })
+    callback(cities);
+  });
 };
 
+// cerrar sesion
 
-//cerrar sesion
- export const logOut = () => {
-  signOut(auth).then(() => {
-    // Sign-out successful.
-    console.log('cierre de sesión exitoso');
-    window.location.hash = '#/login';
-  }).catch((error) => {
-    console.log(error);
-    // An error happened.
-  });
-}
+export const logOut = () => {
+  signOut(auth)
+    .then(() => {
+      // Sign-out successful.
+      console.log('cierre de sesión exitoso');
+      window.location.hash = '#/login';
+    })
+    .catch((error) => {
+      console.log(error);
+      // An error happened.
+    });
+};
 
 export const eraseDoc = async (id) => {
   const confirm = window.confirm('¿Quieres eliminar esta publicación?');
@@ -166,4 +146,3 @@ export const observador = () => {
     }
   });
 };
-
