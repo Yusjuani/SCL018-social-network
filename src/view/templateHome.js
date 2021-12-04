@@ -23,19 +23,18 @@ export const home = () => {
   <textarea type="text" placeholder="Publica aquí" id="title" cols="20" rows="10"class="espaciado"></textarea>
   <button class="publicar-btn" id="publish-btn">Publicar</button>
   </section> 
-
-  <section id="publicaciones" class="post">
-  
+  <section id = "publicaciones" class="post">
   </section>
-  
 </div>`;
-
   containerHome.innerHTML = viewHome;
   const post = (publicaciones) => {
-    console.log(publicaciones);
     publicaciones.forEach((element) => {
-      containerHome.querySelector("#publicaciones").innerHTML += `
+      containerHome.querySelector('#publicaciones').innerHTML += `
       <div class= "contenedorPost">
+      <div class= "user-picture">
+      <img class= "avatar" src="img/avatar.jpg" alt="avatar">  
+      <h1 class="user-name">${element.username}</h1> 
+      </div>
       <p name="publication" id="publish">${element.title}</p>
       </div>
       <div class="container-wall">
@@ -63,7 +62,7 @@ export const home = () => {
   });
 
   const botonDelete = containerHome.querySelector(".delete-btn");
-  botonDelete?.forEach((btn) => {
+  botonDelete.forEach((btn) => {
     console.log(btn);
     const id = btn.value;
     btn.addEventListener("click", () => {
