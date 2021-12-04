@@ -1,4 +1,3 @@
-/* eslint-disable import/no-cycle */
 import { signInGoogle, logEmail } from '../lib/firebase.js';
 
 export const login = () => {

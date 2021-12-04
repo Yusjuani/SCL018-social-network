@@ -9,23 +9,18 @@ import {
   signInWithPopup,
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
-  onAuthStateChanged,
+  //onAuthStateChanged,
   signOut,
 } from 'https://www.gstatic.com/firebasejs/9.2.0/firebase-auth.js';
 import {
   getFirestore,
   collection,
   addDoc,
-  query,
-  onSnapshot,
   deleteDoc,
   doc,
   Timestamp,
   orderBy,
-<<<<<<< HEAD
-=======
   getDocs,
->>>>>>> 434d2552e8fed42e138ba240c721fff404b3c472
 } from 'https://www.gstatic.com/firebasejs/9.2.0/firebase-firestore.js';
 
 const firebaseConfig = {
@@ -42,13 +37,9 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 export const auth = getAuth(app);
 
-<<<<<<< HEAD
-// AUTENTICACION GOOGLE
-=======
 const db = getFirestore(app);
 console.log(app);
 
->>>>>>> 434d2552e8fed42e138ba240c721fff404b3c472
 export const signInGoogle = () => {
   const provider = new GoogleAuthProvider(app);
   signInWithPopup(auth, provider)
@@ -58,15 +49,10 @@ export const signInGoogle = () => {
       const token = credential.accessToken;
       // The signed-in user info.
       const user = result.user;
-<<<<<<< HEAD
-      window.location.hash = '#/templateHome';
-      return user;
-=======
 
       window.location.hash = '#/templateHome';
       return user;
       // ...
->>>>>>> 434d2552e8fed42e138ba240c721fff404b3c472
     })
     .catch((error) => {
       // Handle Errors here.
@@ -82,16 +68,11 @@ export const signInGoogle = () => {
 export const newEmail = (email, newpassword) => {
   createUserWithEmailAndPassword(auth, email, newpassword)
     .then((userCredential) => {
-<<<<<<< HEAD
-      const user = userCredential.user;
-      window.location.hash = '#/login';
-=======
       // Signed in
       const user = userCredential.user;
 
       window.location.hash = '#/login';
 
->>>>>>> 434d2552e8fed42e138ba240c721fff404b3c472
       return user;
     })
     .catch((error) => {
@@ -100,10 +81,7 @@ export const newEmail = (email, newpassword) => {
       // ..
       return errorCode + errorMessage;
     });
-<<<<<<< HEAD
-=======
   return createUserWithEmailAndPassword;
->>>>>>> 434d2552e8fed42e138ba240c721fff404b3c472
 };
 // USUARIOS REGISTRADOS
 export const logEmail = (emaiLogin, passwordLogin) => {
@@ -111,10 +89,6 @@ export const logEmail = (emaiLogin, passwordLogin) => {
     .then((userCredential) => {
       // Signed in
       const user = userCredential.user;
-<<<<<<< HEAD
-=======
-
->>>>>>> 434d2552e8fed42e138ba240c721fff404b3c472
       window.location.hash = '#/templateHome';
     })
     .catch((error) => {
@@ -150,6 +124,7 @@ export const readData = async () => {
   });
   return posts;
 };
+
 export const eraseDoc = async (id) => {
   console.log(id);
   const confirm = window.confirm('¿Quieres eliminar esta publicación?');
