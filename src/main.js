@@ -1,17 +1,17 @@
 import {
   changeRoute,
 } from './lib/router.js';
-/*import {
+import {
   observador,
-} from './lib/firebase.js';*/
+} from './lib/firebase.js';
 
 const init = () => {
   window.location.hash = '#/login';
   changeRoute(window.location.hash);
-  /*observador();*/
 };
 window.addEventListener('load', init);
 window.addEventListener('hashchange', () => {
+  observador();
   changeRoute(window.location.hash);
-  /*observador();*/
+  //observador();
 });
